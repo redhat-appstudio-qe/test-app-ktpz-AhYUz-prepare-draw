@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/created-by: application-service
+    app.kubernetes.io/instance: test-component-bhsm
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: test-component-bhsm
+    app.kubernetes.io/part-of: test-app-ktpz
+  name: test-component-bhsm
+  namespace: build-e2e-vaiy-tenant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+      app.kubernetes.io/instance: test-component-bhsm
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: python-app
+        app.kubernetes.io/instance: test-component-bhsm
+    spec:
+      containers:
+      - image: quay.io/redhat-appstudio-qe/test-images:9d72dd1d2a2e4287b241f3e6ee86d5de
+        name: my-python
+        ports:
+        - containerPort: 8081
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 10m
+            memory: 50Mi
+status: {}
